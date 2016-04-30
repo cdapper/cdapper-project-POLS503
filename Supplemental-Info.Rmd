@@ -1,0 +1,80 @@
+---
+title: "Supplemental-Info"
+output: html_document
+---
+
+Working explanatory variables: race and income.
+Outcome variable: decision.
+
+Summary statistics
+
+Missingness: 
+
+Total cases involving natural persons: 11461
+Total cases with "" and only ascertained decision: 10720
+Total cases with "" and NO partial decisions: 9825
+Total cases with "" and only ascertained and no missing race: 1304
+Total cases with "" and only ascertained and no missing income: 729
+
+
+
+
+Distribution of variables (these plots are also found within the draft)
+
+Number of appellants across racial groups:
+
+```{r}
+
+race_plot <- ggplot(db_npr, 
+                             aes(x = appel1_rlabel,
+                                 y = (((..count..)/sum(..count..)) * 100))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Racial Groups", y = "Percent of Appellants") 
+
+race_plot
+
+```
+
+Number of appellants across income levels:
+
+```{r}
+
+income_plot <- ggplot(db_npri, 
+                             aes(x = appel1_ilabel,  
+                                 y = (((..count..)/sum(..count..)) * 100))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Income Levels", y = "Percent of Appellants")
+
+income_plot
+
+```
+
+Decisions distributed across racial groups:
+
+```{r}
+decision_plot_race <- ggplot(db_npr, 
+                             aes(x = appel1_rlabel, 
+                                 fill = decision, 
+                                 y = (((..count..)/sum(..count..)) * 100))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Racial Groups", y = "Percent of Appellants") +
+  scale_fill_discrete(guide = guide_legend(title = "Decision"))
+
+decision_plot_race
+```
+
+Decisions distributed across income levels:
+
+```{r}
+decision_plot_income <- ggplot(db_npi, 
+                               aes(x = appel1_ilabel, 
+                                   fill = decision, 
+                                   y = (((..count..)/sum(..count..)) * 100))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Income Level", y = "Percent of Appellants") +
+  scale_fill_discrete(guide = guide_legend(title = "Decision")) 
+
+decision_plot_income
+```
+
+
